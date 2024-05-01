@@ -1,0 +1,64 @@
+package com.example.services;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.example.Exceptions.AuthenticationException;
+import com.example.Exceptions.UserNotFoundException;
+import com.example.Exceptions.UserRegistrationException;
+import com.example.entities.UserInfo;
+import com.example.entities.UserProfile;
+import com.example.repositories.UserInfoRepository;
+
+@Service
+public class UserInfoManagerImpl {
+
+    @Autowired
+    private UserInfoRepository userRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
+    public void signup(UserInfo signupRequest) throws UserRegistrationException {
+        // Check if username or email already exists
+        if (userRepository.existsByUsername(signupRequest.getUsername())) {
+            throw new UserRegistrationException("Username is already taken");
+        }
+        if (userRepository.existsByEmail(signupRequest.getEmail())) {
+            throw new UserRegistrationException("Email is already registered");
+        }
+
+        // Create user entity and encode password
+        UserInfo user = new UserInfo();
+        user.setUsername(signupRequest.getUsername());
+        user.setEmail(signupRequest.getEmail());
+        user.setPassword(passwordEncoder.encode(signupRequest.getPassword()));
+
+        // Save user to database
+        userRepository.save(user);
+    }
+
+    public String login(UserInfo loginRequest) throws AuthenticationException {
+        UserInfo user = userRepository.findByUsername(loginRequest.getUsername());
+        if (user == null || !passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
+            throw new AuthenticationException("Invalid username or password");
+        }
+        // Implement JWT token generation and return token here
+        return "JWT Token";
+    }
+
+    public void updateUserProfile(Long userId, UserProfile userProfileUpdateRequest) throws UserNotFoundException {
+        UserInfo user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User not found with id: " + userId));
+
+        // Update user profile fields
+//        user.setFullName(userProfileUpdateRequest.getCity());
+//        user.setBio(userProfileUpdateRequest.getGender());
+
+        // Save updated user profile
+        userRepository.save(user);
+    }
+
+    // Other methods for password reset, profile retrieval, etc.
+}

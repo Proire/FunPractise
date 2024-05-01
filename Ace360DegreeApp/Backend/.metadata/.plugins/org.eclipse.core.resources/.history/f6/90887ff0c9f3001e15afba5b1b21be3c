@@ -1,0 +1,26 @@
+package com.example.services;
+
+import java.util.ArrayList;
+
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+@Service
+public class CustomUserDetailsService implements UserDetailsService
+{
+	private String password;
+	public void setPassword(String password)
+	{
+		this.password=password;
+	}
+	@Override
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		System.out.println("inside loaduserbyname method");
+		System.out.println(email+" "+password);
+		return new User(email,password,new ArrayList<>());
+	}
+
+}

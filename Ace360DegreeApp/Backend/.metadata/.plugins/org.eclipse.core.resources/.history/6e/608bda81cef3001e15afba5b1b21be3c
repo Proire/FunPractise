@@ -1,0 +1,28 @@
+package com.example.services;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.example.Exceptions.AuthenticationException;
+import com.example.Exceptions.UserNotFoundException;
+import com.example.Exceptions.UserRegistrationException;
+import com.example.entities.UserInfo;
+import com.example.entities.UserProfile;
+import com.example.repositories.UserInfoRepository;
+
+@Service
+public class UserInfoManagerImpl {
+
+    @Autowired
+    private UserInfoRepository userRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
+    
+    public String signup(UserInfo userinfo)
+    {
+    	return "User Added Successfully";
+    }
+}

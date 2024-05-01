@@ -1,0 +1,5 @@
+package com.example.Exceptions;
+
+public class userRegistrationException {
+
+}
