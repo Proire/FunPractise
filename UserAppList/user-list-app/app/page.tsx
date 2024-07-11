@@ -1,12 +1,16 @@
 // pages/index.tsx
 "use client";
-import React from 'react';
+import React, { useState } from 'react';
 import UserList from '../components/UserList';
 import UserDetails from '../components/UserDetails';
 import { User } from '../types/User';
 
 const Home: React.FC = () => {
-  const [selectedUser, setSelectedUser] = React.useState<User | null>(null);
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+
+  const handleUpdateUser = (updatedUser: User) => {
+    setSelectedUser(updatedUser);
+  };
 
   return (
     <div className="container">
@@ -14,7 +18,7 @@ const Home: React.FC = () => {
         <UserList onSelectUser={setSelectedUser} />
       </div>
       <div className="user-details-container">
-        <UserDetails user={selectedUser} />
+        <UserDetails user={selectedUser} onUpdateUser={handleUpdateUser} />
       </div>
     </div>
   );
