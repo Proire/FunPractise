@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { User } from '../types/User';
 
@@ -12,7 +12,7 @@ const UserDetails: React.FC<UserDetailsProps> = ({ user, onUpdateUser }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editableUser, setEditableUser] = useState<User | null>(user);
 
-  useEffect(() => {
+  React.useEffect(() => {
     setEditableUser(user);
   }, [user]);
 
@@ -27,7 +27,7 @@ const UserDetails: React.FC<UserDetailsProps> = ({ user, onUpdateUser }) => {
       axios.put(`http://localhost:3001/users/${editableUser.id}`, editableUser)
         .then(response => {
           setIsEditing(false);
-          onUpdateUser(editableUser);  // Update the user in the parent component
+          onUpdateUser(editableUser); // Update the user in the parent component
         })
         .catch(error => {
           console.error("There was an error updating the user!", error);

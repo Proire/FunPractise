@@ -1,24 +1,12 @@
 import React from 'react';
-import axios from 'axios';
 import { User } from '../types/User';
 
 interface UserListProps {
-  onSelectUser: (user: User) => void;
+  users: User[];
+  onSelectUser: (user: User | null) => void;
 }
 
-const UserList: React.FC<UserListProps> = ({ onSelectUser }) => {
-  const [users, setUsers] = React.useState<User[]>([]);
-
-  React.useEffect(() => {
-    axios.get('http://localhost:3001/users') // Assuming JSON Server is running locally on port 3000
-      .then(response => {
-        setUsers(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching users:', error);
-      });
-  }, []);
-
+const UserList: React.FC<UserListProps> = ({ users, onSelectUser }) => {
   return (
     <div className="user-list">
       <h2>User List</h2>
