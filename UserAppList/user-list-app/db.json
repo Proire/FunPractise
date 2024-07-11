@@ -1,0 +1,49 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Virat Kohli",
+      "phone": "9876543210",
+      "email": "virat.kohli@bcci.com",
+      "website": "bcci.tv",
+      "dob": "1988-11-05",
+      "address": "Delhi, India"
+    },
+    {
+      "id": "2",
+      "name": "Rohit Sharma",
+      "phone": "8765432109",
+      "email": "rohit.sharma@bcci.com",
+      "website": "bcci.tv",
+      "dob": "1987-04-30",
+      "address": "Mumbai, India"
+    },
+    {
+      "id": "3",
+      "name": "Jasprit Bumrah",
+      "phone": "7654321098",
+      "email": "jasprit.bumrah@bcci.com",
+      "website": "bcci.tv",
+      "dob": "1993-12-06",
+      "address": "Ahmedabad, India"
+    },
+    {
+      "id": "4",
+      "name": "Sir Jadeja",
+      "phone": "6543210987",
+      "email": "ravindra.jadeja@bcci.com",
+      "website": "bcci.tv",
+      "dob": "1988-12-06",
+      "address": "Jamnagar, India"
+    },
+    {
+      "id": "5",
+      "name": "KL Rahul",
+      "phone": "5432109876",
+      "email": "kl.rahul@bcci.com",
+      "website": "bcci.tv",
+      "dob": "1992-04-18",
+      "address": "Bangalore, India"
+    }
+  ]
+}

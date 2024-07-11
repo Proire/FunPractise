@@ -1,0 +1,73 @@
+/* styles/global.css */
+body {
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.user-list-container, .user-details-container {
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.user-list-container {
+  width: 20%;
+  background-color: #f8f8f8;
+  margin-right: 10px;
+}
+
+.user-details-container {
+  width: 60%;
+  background-color: #fff;
+  margin-right: 10px;
+}
+
+.user-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.user-list li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.user-list li:hover {
+  background-color: #e0e0e0;
+}
+
+.tabs {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.tabs button {
+  padding: 10px;
+  margin-right: 10px;
+  border: none;
+  background-color: #e0e0e0;
+  cursor: pointer;
+}
+
+.tabs button.active {
+  background-color: #d0d0d0;
+}
+
+.tab-content p {
+  margin: 5px 0;
+}
+
+.actions {
+  margin-top: 20px;
+}
+
+.actions button {
+  padding: 10px;
+  border: none;
+  background-color: #e0e0e0;
+  cursor: pointer;
+}
