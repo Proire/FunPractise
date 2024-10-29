@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Page</title>
+    <style>
+        /* Set body styles */
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative; /* Position relative for child elements */
+            overflow: hidden; /* Hide overflow to prevent scroll bars */
+            color: white; /* White text color */
+            font-family: 'Arial', sans-serif; /* Set a clean font */
+        }
+
+        /* Video background styling */
+        video {
+            position: absolute;
+            top: 0; /* Position at the top */
+            left: 0; /* Position at the left */
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            object-fit: cover; /* Cover the area without stretching */
+            z-index: -1; /* Send video behind text */
+        }
+
+
+        /* Welcome message styling */
+        h1 {
+            font-size: 4rem; /* Increase font size for better visibility */
+            margin: 0;
+            padding: 1rem; /* Add padding for better spacing */
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8); /* Stronger shadow for readability */
+            z-index: 1; /* Ensure text is above video */
+            border-radius: 10px; /* Rounded corners for the background */
+        }
+
+        /* Click instruction styling */
+        p {
+            font-size: 1.8rem; /* Increase font size for instruction text */
+            margin-top: 1rem;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6); /* Add shadow for readability */
+            z-index: 1; /* Ensure text is above video */
+        }
+
+
+        /* Make the body cursor a pointer */
+        body {
+            cursor: pointer; /* Change cursor on hover */
+        }
+    </style>
+    <script>
+        // Function to fetch welcome message
+        async function fetchWelcomeMessage() {
+            try {
+                const response = await fetch('http://localhost:8080/auth/welcome');
+                const message = await response.text(); // Assuming the response is plain text
+                document.getElementById('welcome-message').innerText = message;
+            } catch (error) {
+                console.error('Error fetching welcome message:', error);
+            }
+        }
+
+        // Redirect to login page on click
+        function goToLogin() {
+            window.location.href = 'login.html';
+        }
+
+        window.onload = fetchWelcomeMessage; // Fetch the welcome message when the page loads
+    </script>
+</head>
+<body onclick="goToLogin()">
+    <video autoplay loop muted>
+        <source src="bgVideo.mp4" type="video/mp4"> <!-- Local video file -->
+        Your browser does not support HTML5 video.
+    </video>
+    <h1 id="welcome-message"></h1>
+    <p>Click anywhere to login</p>
+</body>
+</html>
