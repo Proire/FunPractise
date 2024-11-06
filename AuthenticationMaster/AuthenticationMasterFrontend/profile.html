@@ -16,6 +16,7 @@
             justify-content: center;
             font-family: Arial, sans-serif;
             color: red;
+            flex-direction: column;
         }
 
         /* Styling for the background video */
@@ -36,19 +37,48 @@
             font-size: 48px;
             font-weight: bold;
             z-index: 1;
+            margin-bottom: 20px;
+        }
+
+         /* Logout button styling */
+         .logout-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: red;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            z-index: 1;
         }
     </style>
+     <!-- Redirect to login page immediately if no token is present -->
+     <script>
+        const token = localStorage.getItem('jwtToken');
+        if (!token) {
+            window.location.href = 'login.html';
+        }
+    </script>
     <script>
+        // Check if token is valid, otherwise redirect to login
+        function checkTokenValidity() {
+            const token = localStorage.getItem('jwtToken');
+            const tokenExpiry = localStorage.getItem('jwtTokenExpiry');
+            const currentTime = Date.now();
+
+            if (!token || !tokenExpiry || currentTime > tokenExpiry) {
+                localStorage.removeItem('jwtToken');
+                localStorage.removeItem('jwtTokenExpiry');
+                window.location.href = 'login.html';
+                return false;
+            }
+            return true;
+        }
+        
         async function fetchUserProfile() {
             const params = new URLSearchParams(window.location.search);
             const username = params.get('username');
             const token = localStorage.getItem('jwtToken');
-
-            if (!token) {
-                alert('You are not logged in. Redirecting to login page.');
-                window.location.href = 'login.html';
-                return;
-            }
 
             try {
                 const response = await fetch(`http://localhost:8080/auth/user/userProfile/${username}`, {
@@ -70,6 +100,12 @@
             }
         }
 
+        function logout() {
+            // Clear the token from localStorage and redirect to login page
+            localStorage.removeItem('jwtToken');
+            window.location.href = 'login.html';
+        }
+
         window.onload = fetchUserProfile; // Fetch user profile when the page loads
     </script>
 </head>
@@ -85,5 +121,8 @@
         <div>Access Granted</div>
         <div id="username"></div> <!-- Placeholder for dynamic username -->
     </div>
+
+    <!-- Logout button with type="button" -->
+    <button type="button" class="logout-button" onclick="logout()">Logout</button>
 </body>
 </html>
